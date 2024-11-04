@@ -49,8 +49,9 @@ public class VillagerTrade implements EmiRecipe {
         if (internalProf.equals(EMITradesPlugin.WANDERING_TRADER_PLACEHOLDER)) {
             this.title = Text.translatable("emi.emitrades.placeholder.wandering_trader");
         } else {
-            this.title = Text.translatable("entity.minecraft.villager." + profile.profession().id().substring(profile.profession().id().lastIndexOf(":") + 1))
-                    .append(" - ").append(Text.translatable("emi.emitrades.profession.lvl." + profile.level()));
+            String[] villageId = profile.profession().id().split(":");
+            this.title = Text.translatable("entity.minecraft.villager." + "minecraft".equals(villageId[0]) ? villageId[1] : villageId[0] + "." + villageId[1])
+                    .append(" - ").append(Text.translatable("merchant.level." + profile.level()));
         }
         TradeOffers.Factory offer = profile.offer();
         if (offer instanceof TradeOffers.BuyForOneEmeraldFactory factory) {
